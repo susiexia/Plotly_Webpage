@@ -2,7 +2,7 @@ function init_menu() {
     //var selectElement = d3.select("select");
 
     // import source data.json
-    d3.json("/resource/samples.json").then((data) =>{
+    d3.json("samples.json").then((data) =>{
             data.names.forEach((indiv) => {
             // append new tag under <select>
             d3.select("#selDataset").append("option")
@@ -15,7 +15,7 @@ function init_menu() {
 
 
 function buildPanel(id) {
-     d3.json("/resource/samples.json").then((data) =>{
+     d3.json("samples.json").then((data) =>{
         var metadata = data.metadata;
         var resultArray = metadata.filter(sampleObj => sampleObj.id == id);
         var result = resultArray[0];  // filter returns an array!! we need the element(an obj) of this array
@@ -32,19 +32,27 @@ function buildPanel(id) {
     });
 };
 
-//function buildCharts(id) {
-    //var xData = ;
-    //var yData = ;
+function buildCharts(id) {
+    d3.json("samples.json").then((data) =>{
+        var samplesData =  data.samples;
+        var sampleResultArray = samplesData.filter(sampleObj => sampleObj.id == id);
+        var sampleResult = sampleResultArray[0];
+        
+        var barXdata = sampleResult.sample_values.sort((a,b) => b-a).map((val) =>parseInt(val));
+        //var barYdata
+        console.log("barXdata");
+        BAR =d3.select("#bar").append("h1").text(barXdata);
 
-    
-//}
+
+    });
+}
 
 
 // html attr to build an event listner-- onchange
 function optionChanged(sample) {
     // call two seperate modules
     buildPanel(sample);
-    //buildCharts(sample);
+    buildCharts(sample);
 };
 
 //d3.selectAll("select").on("change", optionChanged(sample));

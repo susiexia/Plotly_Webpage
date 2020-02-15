@@ -9,7 +9,9 @@ function init_menu() {
                                     .text(indiv)
                                     .property("value", indiv);
         });
-    })    
+    }) ;
+    buildPanel("940");
+    buildCharts("940")
 };
 
 
@@ -51,9 +53,29 @@ function buildCharts(id) {
             xaxis: {title: "Sample Values"},
             yaxis: {autorange: "reversed"}
         };
+        // build Bar Chart 
         Plotly.newPlot("bar", [barTrace], barLayout);
+
+        var bubbleXdata = sampleResult.otu_ids;
+        var bubbleYdata = sampleResult.sample_values;
+        var bubbleHover = sampleResult.otu_labels;
+
+        var bubbleTrace = {
+            x: bubbleXdata, y: bubbleYdata, text:bubbleHover,
+            mode:"markers", marker:{
+                size: bubbleYdata,
+                color:bubbleXdata
+            }
+        };
+        var bubbleLayout = {
+            title: "Volunteer Samples (OTUs)",
+            xaxis: {title: "OTUs ID"}
+        };
+
+        // build Bubble Chart
+        Plotly.newPlot("bubble", [bubbleTrace], bubbleLayout)
         
-        //BAR =d3.select("#bar").append("h1").text();
+        //BAR =d3.select("#bubble").append("h1").text();
 
 
     });

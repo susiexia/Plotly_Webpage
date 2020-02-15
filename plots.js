@@ -86,22 +86,23 @@ function buildCharts(id) {
             mode:"gauge+number",
             value: gaugeData,
             gauge:{
-                axis :{range: [null,9] ,
+                axis: {range: [null,9] ,
                     },
+                bar: { color : "#cfd16f"},
                 steps: [{range: [0,1], color:"#edfaf1"},
                         {range: [1,2], color:"#d3f5dd"},
                         {range: [2,3], color:"#82bf94"},
                         {range: [3,4], color:"#599e6d"},
-                        {range: [4,5], color:"#408754"},
-                        {range: [5,6], color:"#2b6e3e"},
-                        {range: [6,7], color:"#206132"},
-                        {range: [7,8], color:"#144722"},
-                        {range: [8,9], color:"#0b2e15"}
+                        {range: [4,5], color:"#499960"},
+                        {range: [5,6], color:"#3c8551"},
+                        {range: [6,7], color:"#317344"},
+                        {range: [7,8], color:"#296b3c"},
+                        {range: [8,9], color:"#205c31"}
                         ]
             }
         };
         var gaugeLayout = {
-            title: "Belly Button Washing Frequency<br><small>Scrubs per Week</small>",
+            title: "Belly Button Washing Frequency<br>Scrubs per Week",
         };
 
         // build Indicator Chart

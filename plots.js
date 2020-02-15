@@ -38,10 +38,22 @@ function buildCharts(id) {
         var sampleResultArray = samplesData.filter(sampleObj => sampleObj.id == id);
         var sampleResult = sampleResultArray[0];
         
-        var barXdata = sampleResult.sample_values.sort((a,b) => b-a).map((val) =>parseInt(val));
-        //var barYdata
-        console.log("barXdata");
-        BAR =d3.select("#bar").append("h1").text(barXdata);
+        var barXdata = sampleResult.sample_values.map((val) =>parseInt(val)).slice(0,10);
+        var barYdata = sampleResult.otu_ids.map((oi) =>"OTU " + oi).slice(0,10);
+        var barHoverText = sampleResult.otu_labels.slice(0,10);
+        
+        var barTrace = {
+            x:barXdata, y: barYdata, text: barHoverText, 
+            type: "bar", orientation: "h"
+        };
+        var barLayout = {
+            title: "Volunteer Samples Top 10 Bacterial Species (OTUs)",
+            xaxis: {title: "Sample Values"},
+            yaxis: {autorange: "reversed"}
+        };
+        Plotly.newPlot("bar", [barTrace], barLayout);
+        
+        //BAR =d3.select("#bar").append("h1").text();
 
 
     });

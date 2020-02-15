@@ -15,7 +15,6 @@ function init_menu() {
 };
 
 
-
 function buildPanel(id) {
      d3.json("samples.json").then((data) =>{
         var metadata = data.metadata;
@@ -49,7 +48,7 @@ function buildCharts(id) {
             type: "bar", orientation: "h"
         };
         var barLayout = {
-            title: "Volunteer Samples Top 10 Bacterial Species (OTUs)",
+            title: "Top 10 Bacterial Species (OTUs)",
             xaxis: {title: "Sample Values"},
             yaxis: {autorange: "reversed"}
         };
@@ -69,7 +68,7 @@ function buildCharts(id) {
             }
         };
         var bubbleLayout = {
-            title: "Volunteer Samples (OTUs)",
+            title: "Bubble Samples (OTUs)",
             xaxis: {title: "OTUs ID"}
         };
 
@@ -82,13 +81,13 @@ function buildCharts(id) {
         var result = resultArray[0];
         var gaugeData = parseInt(result.wfreq);
 
-
         var gaugeTrace = {
             type: "indicator",
             mode:"gauge+number",
             value: gaugeData,
             gauge:{
-                axis :{range: [null,9] },
+                axis :{range: [null,9] ,
+                    },
                 steps: [{range: [0,1], color:"#edfaf1"},
                         {range: [1,2], color:"#d3f5dd"},
                         {range: [2,3], color:"#82bf94"},
@@ -102,15 +101,11 @@ function buildCharts(id) {
             }
         };
         var gaugeLayout = {
-            title: "Belly Button Washing Frequency<br>Scrubs per Week",
+            title: "Belly Button Washing Frequency<br><small>Scrubs per Week</small>",
         };
-
 
         // build Indicator Chart
         Plotly.newPlot("gauge", [gaugeTrace],gaugeLayout);
-
-        //BAR =d3.select("#bubble").append("h1").text();
-
 
     });
 }
@@ -120,14 +115,10 @@ function buildCharts(id) {
 function optionChanged(sample) {
     // call two seperate modules
     buildPanel(sample);
-    buildCharts(sample);
+    buildCharts(sample)
 };
 
-//d3.selectAll("select").on("change", optionChanged(sample));
-//function optionChanged() {
-    //buildPanel(sample);
-    //buildCharts(sample);
-//};
+//SAME: d3.selectAll("select").on("change", optionChanged(sample));
 
 
 init_menu();

@@ -56,6 +56,7 @@ function buildCharts(id) {
         // build Bar Chart 
         Plotly.newPlot("bar", [barTrace], barLayout);
 
+        //------------------------------------
         var bubbleXdata = sampleResult.otu_ids;
         var bubbleYdata = sampleResult.sample_values;
         var bubbleHover = sampleResult.otu_labels;
@@ -75,6 +76,39 @@ function buildCharts(id) {
         // build Bubble Chart
         Plotly.newPlot("bubble", [bubbleTrace], bubbleLayout)
         
+        //----------------------------------------
+        var metadata = data.metadata;
+        var resultArray = metadata.filter(sampleObj => sampleObj.id == id);
+        var result = resultArray[0];
+        var gaugeData = parseInt(result.wfreq);
+
+
+        var gaugeTrace = {
+            type: "indicator",
+            mode:"gauge+number",
+            value: gaugeData,
+            gauge:{
+                axis :{range: [null,9] },
+                steps: [{range: [0,1], color:"#edfaf1"},
+                        {range: [1,2], color:"#d3f5dd"},
+                        {range: [2,3], color:"#82bf94"},
+                        {range: [3,4], color:"#599e6d"},
+                        {range: [4,5], color:"#408754"},
+                        {range: [5,6], color:"#2b6e3e"},
+                        {range: [6,7], color:"#206132"},
+                        {range: [7,8], color:"#144722"},
+                        {range: [8,9], color:"#0b2e15"}
+                        ]
+            }
+        };
+        var gaugeLayout = {
+            title: "Belly Button Washing Frequency<br>Scrubs per Week",
+        };
+
+
+        // build Indicator Chart
+        Plotly.newPlot("gauge", [gaugeTrace],gaugeLayout);
+
         //BAR =d3.select("#bubble").append("h1").text();
 
 
